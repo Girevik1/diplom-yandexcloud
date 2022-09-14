@@ -1,0 +1,8 @@
+---
+  - name: Installation nginx and setup reverse proxy with TLS
+    hosts: revproxy
+    become: yes
+    become_user: root
+    remote_user: art
+    roles:
+      - nginx-revproxy

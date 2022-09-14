@@ -1,0 +1,58 @@
+---
+  - name: Updating remote system
+    apt:
+      update_cache: yes
+
+  - name: Installing nginx and letsencrypt
+    apt:
+      name: 
+        - nginx
+        - letsencrypt
+      state: latest
+
+  - name: Setuping nginx - step 1. remove default site config
+    file:
+      name: /etc/nginx/sites-enabled/default
+      state: absent
+
+  - name: Setuping nginx - step 2. install nginx basic http site
+    template:
+      src: templates/http.j2
+      dest: /etc/nginx/sites-enabled/http
+
+  - name: Reloading nginx
+    service:
+      name: nginx
+      state: restarted
+      enabled: true
+
+  - name: Preparing letsencrypt - step 1. create letsencrypt directory
+    file:
+      name: /var/www/letsencrypt
+      state: directory
+
+  - name: Prepering letsencrypt - step 2. create certificate
+    shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domain }} --test-cert
+    args:
+      creates: /etc/letsencrypt/live/{{ domain }}
+
+  - name: Finishing nginx setup - install nginx config
+    template:
+      src: templates/nginx.conf
+      dest: /etc/nginx/nginx.conf
+
+  - name: Finishing nginx setup - enable https 
+    template:
+      src: templates/https.j2
+      dest: /etc/nginx/sites-enabled/https
+
+  - name: Finishing nginx setup - add basic html page
+    template:
+      src: templates/index.html
+      dest: /var/www/index.html
+
+
+  - name: Reloading nginx
+    service:
+      name: nginx
+      state: restarted

@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: art
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDd/xM3NWJY2S9KlkKQd2cYSfJohFda5l6tenQjjnUwuZodwFIcchQqaoOPzZrKmk4xsELQOhnHZVB2JJIU+39Bamr3BQAsC1CFP9Injj5rDaLeCNBzvfwEGz0aL74ZFon8EEs7UCOlYy93MkLUk9WUSLBmYFSvfJxXlse4ypMs9Ag8e69tpQbx72aeNCRYg3W4dRtnVNgU9TTI0f4BFKMxjmJrVqrkp47R0mu62bptdaTaD1Gd9wKa0l8MfANEyPtu+lGR4wlMkvYv88bCY2bsdF318P0FftFC/V/1tEiiqMNdjTPg8GFCqKMeIVMvOdl1AQB5mvr9AF6CMSz3VUPtqlgSOuqk80Zowm2KoaSq5hErVJWrM2bUIvHxe1aCLiNBZczTX7AH7JYteIVC4UnBSNlm+5z7UXId91dEynwctUe2vFk6nunVG3oEoFeKlSly7YnvlnAIpB0HbFRpz/+/lPtDyOZKnlBmpu58CoyGyZzaBSi1eFphFfhTZvFx+QM= art@art-To-be-filled-by-O-E-M

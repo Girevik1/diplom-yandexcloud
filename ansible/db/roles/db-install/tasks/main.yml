@@ -1,0 +1,31 @@
+---
+  - name: Updating remote system
+    apt:
+      update_cache: yes
+
+  - name: Installing mysql python library
+    apt:
+      name:
+        - python3-mysqldb
+      state: present
+
+  - name: Installing mysql
+    apt:
+      name:
+        - mysql-server
+      state: present
+
+  - name: Reloading mysql
+    service:
+      name: mysql
+      state: restarted
+      enabled: true
+
+  - name: Setup user
+    mysql_user:
+      name: wordpress
+      password: "wordpress"  
+      login_user: wordpress  
+      login_password: "wordpress"  
+      check_implicit_admin: yes  
+      priv: "*.*:ALL,GRANT" 

@@ -1,5 +1,5 @@
 resource "yandex_compute_instance" "mashine" {
-  count    = 7
+  count    = 3
   zone     = "ru-central1-a"
   hostname = var.vm[count.index]
 
@@ -17,11 +17,12 @@ resource "yandex_compute_instance" "mashine" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.default-subnet[0].id
-    nat       = true
+    subnet_id  = yandex_vpc_subnet.default-subnet[0].id
+    nat        = true
+    ip_address = "192.168.100.10${count.index}"
   }
 
   metadata = {
-    ssh-keys = "art:${file("~/.ssh/id_rsa.pub")}"
+    user-data = "${file("ssh-key")}"
   }
 }

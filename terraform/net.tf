@@ -10,10 +10,15 @@ resource "yandex_vpc_subnet" "default-subnet" {
   network_id     = yandex_vpc_network.default.id
 }
 
-resource "yandex_vpc_address" "ip" {
-  name = "timerkhanov.site"
+resource "yandex_dns_zone" "timerkhanov_site" {
+  zone   = "timerkhanov.site."
+  public = true
+}
 
-  external_ipv4_address {
-    zone_id = "ru-central1-a"
-  }
+resource "yandex_dns_recordset" "revproxy" {
+  zone_id = yandex_dns_zone.timerkhanov_site.id
+  name    = "timerkhanov.site."
+  type    = "A"
+  ttl     = 200
+  data    = ["${yandex_compute_instance.mashine[0].network_interface.0.nat_ip_address}"]
 }
