@@ -26,5 +26,7 @@ provider "yandex" {
 }
 
 resource "yandex_storage_bucket" "test" {
-  bucket = "ostfstate"
+  bucket     = "ostfstate"
+  access_key = "YCAJEvOTu5lRpPdxl9Rarvrpo"
+  secret_key = "YCPx0luZspDEayxACag-U4jt1qZqObuapE_6k3vG"
 }
