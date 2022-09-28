@@ -1,6 +1,5 @@
-resource "yandex_compute_instance" "mashine" {
-  count    = 3
-  zone     = "ru-central1-a"
+resource "yandex_compute_instance" "machine" {
+  count    = 7
   hostname = var.vm[count.index]
 
   resources {
@@ -25,4 +24,5 @@ resource "yandex_compute_instance" "mashine" {
   metadata = {
     user-data = "${file("ssh-key")}"
   }
+
 }

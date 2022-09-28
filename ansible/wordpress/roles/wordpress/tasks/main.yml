@@ -1,0 +1,69 @@
+---
+  - name: Updating remote
+    apt:
+      update_cache: yes
+
+  - name: Installing nginx
+    apt:
+      name: nginx
+      state: latest
+
+  - name: Delete default site
+    file: 
+      path: /etc/nginx/sites-enabled/default
+      state: absent
+
+  - name: Set nginx configuration
+    template:
+      src: wordpress.conf
+      dest: /etc/nginx/sites-available/wordpress.conf
+
+  - name: Activating site configuration
+    file:
+      src: '/etc/nginx/sites-available/wordpress.conf'
+      dest: '/etc/nginx/sites-enabled/wordpress.conf'
+      state: 'link'
+
+  - name: Reloading nginx
+    service:
+      name: nginx
+      state: restarted
+      enabled: true
+
+  - name: Installing PHP
+    apt: pkg={{ item }}
+    with_items:
+      - php 
+      - php-fpm
+      - php-pear
+      - php-mysql      
+
+  - name: Downloading WordPress
+    get_url:
+      url: http://wordpress.org/latest.tar.gz
+      dest: /tmp/wordpress.tar.gz
+
+  - name: Extract WordPress
+    unarchive: 
+      src: /tmp/wordpress.tar.gz 
+      dest: /var/www/html 
+      remote_src: yes
+
+  - name: Seting ownership
+    file:
+      path: /var/www/html/wordpress
+      state: directory
+      recurse: yes
+      owner: www-data
+      group: www-data
+
+  - name: Coping sample config file
+    command:
+      cmd:  mv /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php 
+      creates: /var/www/html/wordpress/wp-config.php
+
+  - name: Installing wp configuration
+    template:
+      src: wp-config.php
+      dest: /var/www/html/wordpress/wp-config.php
+

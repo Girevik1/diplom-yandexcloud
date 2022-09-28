@@ -1,0 +1,40 @@
+---
+  - hosts: all
+    become: yes
+    become_user: root
+    remote_user: art
+    tasks:
+      - name: Downloading node exporter
+        get_url:
+          url: https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz
+          dest: /tmp
+
+      - name: Unarchiving sources files
+        unarchive:
+          remote_src: yes
+          src: /tmp/node_exporter-1.1.2.linux-amd64.tar.gz
+          dest: /tmp
+
+      - name: Coping source files
+        copy:
+          src: /tmp/node_exporter-1.1.2.linux-amd64/node_exporter
+          dest: /usr/local/bin/node_exporter
+          remote_src: yes
+          owner: root
+          group: root
+          mode: 0755
+
+      - name: Installing service
+        template:
+          src: templates/node_exporter.service
+          dest: /etc/systemd/system/node_exporter.service
+          owner: root
+          group: root
+          mode: 0600
+
+      - name: Configure service
+        systemd:
+          daemon_reload: yes
+          enabled: yes
+          state: started
+          name: node_exporter.service

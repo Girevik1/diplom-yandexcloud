@@ -32,7 +32,7 @@
       state: directory
 
   - name: Prepering letsencrypt - step 2. create certificate
-    shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domain }} --test-cert
+    shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domain }} -d www.{{ domain }} -d prometheus.{{ domain }} -d grafana.{{ domain }} -d alertmanager.{{ domain }}
     args:
       creates: /etc/letsencrypt/live/{{ domain }}
 

@@ -1,0 +1,9 @@
+---
+  - name: Set nginx and setup reverse proxy with TLS
+    hosts: wordpress
+    become: yes
+    become_user: root
+    remote_user: art
+    roles:
+      - wordpress
+

@@ -20,5 +20,37 @@ resource "yandex_dns_recordset" "revproxy" {
   name    = "timerkhanov.site."
   type    = "A"
   ttl     = 200
-  data    = ["${yandex_compute_instance.mashine[0].network_interface.0.nat_ip_address}"]
+  data    = ["${yandex_compute_instance.machine[0].network_interface.0.nat_ip_address}"]
+}
+
+resource "yandex_dns_recordset" "wordpress" {
+  zone_id = yandex_dns_zone.timerkhanov_site.id
+  name    = "www"
+  type    = "A"
+  ttl     = 200
+  data    = ["${yandex_compute_instance.machine[0].network_interface.0.nat_ip_address}"]
+}
+
+resource "yandex_dns_recordset" "grafana" {
+  zone_id = yandex_dns_zone.timerkhanov_site.id
+  name    = "grafana"
+  type    = "A"
+  ttl     = 200
+  data    = ["${yandex_compute_instance.machine[0].network_interface.0.nat_ip_address}"]
+}
+
+resource "yandex_dns_recordset" "prometheus" {
+  zone_id = yandex_dns_zone.timerkhanov_site.id
+  name    = "prometheus"
+  type    = "A"
+  ttl     = 200
+  data    = ["${yandex_compute_instance.machine[0].network_interface.0.nat_ip_address}"]
+}
+
+resource "yandex_dns_recordset" "alertmanager" {
+  zone_id = yandex_dns_zone.timerkhanov_site.id
+  name    = "alertmanager"
+  type    = "A"
+  ttl     = 200
+  data    = ["${yandex_compute_instance.machine[0].network_interface.0.nat_ip_address}"]
 }

@@ -1,0 +1,20 @@
+    
+[revproxy]
+timerkhanov.site ansible_host=84.201.158.160 email=girevik1988@gmail.com domain=timerkhanov.site
+    
+[db]
+db01.timerkhanov.site ansible_host=178.154.200.13
+db02.timerkhanov.site ansible_host=130.193.51.45
+
+[db01]
+db01.timerkhanov.site ansible_host=178.154.200.13
+
+[db02]
+db02.timerkhanov.site ansible_host=130.193.51.45
+
+[wordpress]
+app.timerkhanov.site ansible_host=178.154.205.9 domain=timerkhanov.site 
+
+[monitoring]
+monitoring.timerkhanov.site ansible_host=178.154.204.172 domain=timerkhanov.site
+   

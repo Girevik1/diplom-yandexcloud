@@ -1,0 +1,83 @@
+---
+  - name: Updating remote system
+    apt:
+      update_cache: yes
+  
+  - name: Creating group
+    group:
+      name: prometheus
+      system: true
+      state: present
+
+  - name: Creating service user
+    user:
+      name: prometheus
+      create_home: no
+      shell: "/usr/sbin/nologin"
+      group: prometheus
+
+  - name: Creating directories for service prometheus
+    file:
+      path: "{{ item }}"
+      state: directory
+      owner: prometheus
+      group: prometheus
+    loop:
+      - '/tmp/prometheus'
+      - '/etc/prometheus'
+      - '/var/lib/prometheus'
+
+  - name: Downloading source files
+    unarchive:
+      src: https://github.com/prometheus/prometheus/releases/download/v2.36.2/prometheus-2.36.2.linux-amd64.tar.gz
+      dest: /tmp/prometheus
+      creates: /tmp/prometheus/prometheus-2.36.2.linux-amd64
+      remote_src: yes
+
+  - name: Coping source files
+    copy: 
+      src: /tmp/prometheus/prometheus-2.36.2.linux-amd64/{{ item }}
+      dest: /usr/local/bin/
+      remote_src: yes
+      mode: preserve
+      owner: prometheus
+      group: prometheus
+    loop:
+      - 'prometheus'
+      - 'promtool' 
+
+  - name: Coping config files
+    copy: 
+      src: /tmp/prometheus/prometheus-2.36.2.linux-amd64/{{ item }}
+      dest: /etc/prometheus/
+      remote_src: yes
+      mode: preserve
+      owner: prometheus
+      group: prometheus
+    loop: 
+      - 'console_libraries'
+      - 'consoles'
+      - 'prometheus.yml' 
+
+  - name: Creating systemd service
+    template:
+      src: templates/prometheus.service
+      dest: /etc/systemd/system/
+
+  - name: Reloading systemd
+    systemd:
+      daemon_reload: yes
+
+  - name: Coping sw config files
+    template:
+      src: templates/{{ item  }}
+      dest: /etc/prometheus/
+    loop:
+      - 'prometheus.yml'
+      - 'alert.yml'
+
+  - name: Starting service
+    systemd:
+      name: prometheus
+      state: started
+      enabled: yes  
