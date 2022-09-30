@@ -24,7 +24,7 @@
 7. Настроить CI/CD для автоматического развёртывания приложения.
 8. Настроить мониторинг инфраструктуры с помощью стека: Prometheus, Alert Manager и Grafana.
 
-[Полный листинг задания](https://netology.ru/profile/program/fdvpspdc-2/lessons/135374/lesson_items/696439)
+<!-- [Полный листинг задания](https://netology.ru/profile/program/fdvpspdc-3/lessons/135376/lesson_items/696447) -->
 
 <br><h3>II. Требования для сдачи задания</h3><br>
 
