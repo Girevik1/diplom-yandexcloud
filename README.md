@@ -1,5 +1,8 @@
 ![WordPress](img/certificate-1.png)
 - https://netology.ru/backend/api/user/programs/24726/pdf_certificate
+
+![WordPress](img/certificate-2.png)
+- https://netology.ru/backend/api/user/programs/32238/pdf_certificate
 ---
 
 <div > 
@@ -7,7 +10,7 @@
     <h2 style="text-align: center">Дипломный практикум в YandexCloud</h2>
     <div style="text-align: right">
         <div>Старт работы:<br>12/09/2022</div>
-        <!-- <div>Завершение работы:<br>ХХ/ХХ/2022</div> -->
+        <div>Завершение работы:<br>ХХ/ХХ/2022</div>
     </div>
 </div>
 
