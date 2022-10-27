@@ -1,8 +1,8 @@
 ![WordPress](img/certificate-1.png)
-- https://netology.ru/backend/api/user/programs/24726/pdf_certificate
+- https://netology.ru/sharing/cc2fa5788dd90a16743b165b4bb3d276
 
 ![WordPress](img/certificate-2.png)
-- https://netology.ru/backend/api/user/programs/32238/pdf_certificate
+- https://netology.ru/sharing/290da9f7be7db6e1f39927e352c5b5a9
 ---
 
 <div > 
@@ -27,8 +27,6 @@
 6. Развернуть Gitlab CE и Gitlab Runner.
 7. Настроить CI/CD для автоматического развёртывания приложения.
 8. Настроить мониторинг инфраструктуры с помощью стека: Prometheus, Alert Manager и Grafana.
-
-<!-- [Полный листинг задания](https://netology.ru/profile/program/fdvpspdc-3/lessons/135376/lesson_items/696447) -->
 
 <br><h3>II. Требования для сдачи задания</h3><br>
 
